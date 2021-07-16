@@ -8,8 +8,8 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "avr.h"
-#include "lcd.h"
+#include "avr.h"   //file contain code that control delay of microcontroller. Due to copy right issue, will not be upload.
+#include "lcd.h"   //file contain code that control of LCD. Due to copy right issue, will not be upload.
 
 int is_pressed(int r, int c){
 	DDRC = 0;
@@ -36,6 +36,7 @@ int get_key(){
 }
 
 void display(int side) {
+	//display number on LCD
 	char buf1[17];
 	sprintf(buf1, "%d", side);
 	lcd_pos(0, 0);
@@ -45,7 +46,8 @@ void display(int side) {
 void display_text(int c) {
 	char buf1[17];
 	if (c == 0){
-		sprintf(buf1, "start");
+		//set display on LCD
+		sprintf(buf1, "start");       
 		lcd_pos(0, 0);
 		lcd_puts(buf1);
 	}else{
@@ -64,7 +66,7 @@ int num_gen(){
 
 int main(void)
 {
-	lcd_init();
+	lcd_init();   //init the LCD
 	
     /* Replace with your application code */
     while (1) 
@@ -94,8 +96,8 @@ int main(void)
 				
 			for (int i = 0; i < index; i++){
 				display(nums[i]);
-				avr_wait(500);
-				lcd_clr();
+				avr_wait(500);    //delay for half sec	
+				lcd_clr();        //clear LCD 
 				avr_wait(100);
 			}
 				
@@ -114,11 +116,11 @@ int main(void)
 					}
 					if (key != 0){
 						if (num == nums[i]){
-							avr_wait(500);
+							avr_wait(500);	    //delay for half sec	
 							break;
 						}else{
 							display_text(1);
-							avr_wait(2000);
+							avr_wait(2000);     //delay for 2 sec
 							lcd_clr();
 							done = 1;
 						}
